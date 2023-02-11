@@ -13,7 +13,7 @@ app.get("/hoi", (req, res) => {
 var client_id = "X3k67lYnZEfvfLdXmPFV";
 var client_secret = "HN2v0dpYA9";
 
-app.get("/translate_en2ko", function (req, res) {
+app.get("/translate_ko2en", function (req, res) {
   const q = req.query;
   var data_query = q.sentence;
   var api_url = "https://openapi.naver.com/v1/papago/n2mt";
