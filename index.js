@@ -2,33 +2,34 @@ const express = require("express");
 const app = express();
 const port = 8000;
 const cors = require("cors");
+const bodyParser = require("body-parser");
 app.use(cors());
+app.use(bodyParser.json());
 
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
-app.get("/chatGPT", (req, res) => {
-  const q = req.query;
-  var data_query = q.sentence;
-  // console.log(data_query);
-  runCompletion(data_query);
-  async function runCompletion(data) {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: data,
-      temperature: 0,
-      max_tokens: 100,
-      top_p: 1,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-    });
-    res.json({ text: completion.data.choices[0].text });
-    console.log(completion.data.choices[0].text);
-  }
+app.post("/chatGPT", async (req, res) => {
+  // console.log(req.body);
+  // Get the prompt from the request
+  const { text } = req.body;
+  console.log(text);
+  // Generate a response with ChatGPT
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: text,
+    temperature: 0,
+    max_tokens: 100,
+    top_p: 1,
+    frequency_penalty: 0.0,
+    presence_penalty: 0.0,
+  });
+  res.json({ text: response.data.choices[0].text });
+  // console.log(response.data.choices[0].text);
 });
 
 app.get("/hoi", (req, res) => {
