@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
