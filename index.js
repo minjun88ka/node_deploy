@@ -13,7 +13,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-app.post("/chatGPT", async (req, res) => {
+app.post("/chatGPT", cors(), async (req, res) => {
   // console.log(req.body);
   // Get the prompt from the request
   const { text } = req.body;
