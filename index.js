@@ -9,11 +9,11 @@ app.use(bodyParser.json());
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
-app.post("/chatGPT", async (req, res) => {
+app.post("/chatGPT", cors(), async (req, res) => {
   // console.log(req.body);
   // Get the prompt from the request
   const { text } = req.body;
