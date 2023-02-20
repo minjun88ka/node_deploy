@@ -4,6 +4,33 @@ const port = 8000;
 const cors = require("cors");
 app.use(cors());
 
+const { Configuration, OpenAIApi } = require("openai");
+
+const configuration = new Configuration({
+  apiKey: "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",
+});
+const openai = new OpenAIApi(configuration);
+
+app.get("/chatGPT", (req, res) => {
+  const q = req.query;
+  var data_query = q.sentence;
+  // console.log(data_query);
+  runCompletion(data_query);
+  async function runCompletion(data) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: data,
+      temperature: 0,
+      max_tokens: 100,
+      top_p: 1,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    });
+    res.json({ text: completion.data.choices[0].text });
+    console.log(completion.data.choices[0].text);
+  }
+});
+
 app.get("/hoi", (req, res) => {
   const q = req.query;
   console.log(q);
